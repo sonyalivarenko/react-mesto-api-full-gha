@@ -1,0 +1,14 @@
+.login__item-error {
+  min-height: 30px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  opacity: 0;
+}
+
+
+.login__item-error:last-of-type {
+  margin-bottom: 186px;
+}

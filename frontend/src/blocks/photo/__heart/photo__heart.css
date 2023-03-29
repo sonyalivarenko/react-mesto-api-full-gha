@@ -1,0 +1,17 @@
+.photo__heart {
+  background: url(../../../images/Vector_heart.svg);
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 19px;
+  cursor: pointer;
+  border: none;
+}
+
+.photo__heart:hover {
+  opacity: 0.5;
+}
+
+/* .photo__heart:active {
+  background-image: url(../../../images/heart_black.svg);
+  opacity: 1;
+} */

@@ -1,0 +1,9 @@
+.header__text {
+  display: flex;
+  justify-content: end;
+  gap: 24px;
+  font-size: 18px;
+  line-height: 22px;
+  font-style: normal;
+  margin-top: 6px;
+}

@@ -1,0 +1,9 @@
+.photo__item {
+  min-height: 361px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
