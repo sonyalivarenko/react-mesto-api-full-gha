@@ -1,4 +1,8 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+// export const BASE_URL = 'https://auth.nomoreparties.co';
+
+import apiData from "./utils";
+
+const BASE_URL = apiData.baseUrl;
 
 const getResponseData = (res) => {
   if (!res.ok) {

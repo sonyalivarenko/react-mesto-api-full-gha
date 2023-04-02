@@ -1,7 +1,6 @@
 const apiData = {
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-56',
+  baseUrl: 'https://api.mesto.sonyalivarenko.nomoredomains.work',
   headers: {
-    authorization: 'bc468cad-c22d-4fac-9dee-cf289e7f43c5',
     'Content-Type': 'application/json'
   }
 };
