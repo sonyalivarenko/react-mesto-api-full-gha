@@ -11,6 +11,8 @@ const DocumentNotFoundError = require('../errors/DocumentNotFoundError');
 const ConflictError = require('../errors/ConflictError');
 const User = require('../models/user');
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send({ data: users }))
@@ -118,7 +120,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        'some-secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         { expiresIn: '7d' },
       );
       res.send({ token });
