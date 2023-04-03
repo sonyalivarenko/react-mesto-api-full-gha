@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable spaced-comment */
 /* eslint-disable import/no-import-module-exports */
 /* eslint-disable max-len */
@@ -15,7 +16,7 @@ module.exports.getCards = (req, res, next) => {
 
 module.exports.deleteCard = (req, res, next) => {
   const { cardId } = req.params;
-  const { userId } = req.user._id;
+  const userId = req.user._id;
   Card.findById(cardId)
     .populate('owner')
     .then((card) => {

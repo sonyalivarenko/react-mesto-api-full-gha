@@ -13,6 +13,10 @@ class Api {
     return res.json();
   }
 
+  getToken(token) {
+    this._headers.authorization = `Bearer ${token}`;
+  }
+
   // загрузка информации о пользователе с сервера
   getProfileInfo() {
     return fetch(`${this._baseUrl}/users/me`, {

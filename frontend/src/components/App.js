@@ -57,7 +57,7 @@ function App() {
     if (loggedIn) {
       apiExemplar.getProfileInfo()
       .then((res) => {
-        setCurrentUser(res)
+        setCurrentUser(res.data)
       })
       .catch((err) => {
         console.log(err); 
@@ -65,7 +65,7 @@ function App() {
 
       apiExemplar.getInitialCards()
       .then((res) => {
-        setCards(res)
+        setCards(res.data)
       })
       .catch((err) => {
         console.log(err); 
@@ -74,10 +74,10 @@ function App() {
   }, [loggedIn])
   
   function handleCardLike(card) {
-    const isLiked = card.likes.some(user => user._id === currentUser._id);
+    const isLiked = card.likes.some(user => user === currentUser._id);
     apiExemplar.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((cards) => cards.map((c) => c._id === card._id ? newCard : c));
+        setCards((cards) => cards.map((c) => c._id === card._id ? newCard.data : c));
       })
       .catch((err) => {
         console.log(err); 
@@ -98,7 +98,7 @@ function App() {
   function handleUpdateUser({name, about}) {
     apiExemplar.setProfileInfo({name, about})
     .then((res) => {
-      setCurrentUser(res);
+      setCurrentUser(res.data);
       closeAllPopups();
     })
     .catch((err) => {
@@ -109,7 +109,7 @@ function App() {
   function handleUpdateAvatar({avatar}) {
     apiExemplar.getNewAvatar(avatar)
     .then((res) => {
-      setCurrentUser(res);
+      setCurrentUser(res.data);
       closeAllPopups();
     })
     .catch((err) => {
@@ -120,7 +120,7 @@ function App() {
   function handleAddCard({title, link}) {
     apiExemplar.getNewCard({title, link})
     .then((res) => {
-      setCards((cards) => [res, ...cards]);
+      setCards((cards) => [res.data, ...cards]);
       closeAllPopups();
     })
     .catch((err) => {
@@ -178,6 +178,7 @@ function App() {
     if (jwt) {
       auth.getContent(jwt).then((res) => {
           if (res) {
+            apiExemplar.getToken(jwt);
             setUserEmail(res.data.email);
             setLoggedIn(true);
             navigate("/", {replace: true})
