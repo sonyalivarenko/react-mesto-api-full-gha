@@ -178,7 +178,6 @@ function App() {
     if (jwt) {
       auth.getContent(jwt).then((res) => {
           if (res) {
-            apiExemplar.getToken(jwt);
             setUserEmail(res.data.email);
             setLoggedIn(true);
             navigate("/", {replace: true})

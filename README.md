@@ -6,7 +6,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.57.169
+IP 158.160.57.169
 
 Frontend https://mesto.sonyalivarenko.nomoredomains.work
 

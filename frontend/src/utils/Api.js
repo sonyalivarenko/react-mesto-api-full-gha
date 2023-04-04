@@ -1,9 +1,8 @@
 import apiData from './utils'
 
 class Api {
-  constructor({baseUrl, headers}) { 
+  constructor({baseUrl}) { 
     this._baseUrl = baseUrl;
-    this._headers = headers;
   }
 
   _getResponseData(res) {
@@ -13,15 +12,17 @@ class Api {
     return res.json();
   }
 
-  getToken(token) {
-    this._headers.authorization = `Bearer ${token}`;
+  _getToken() {
+    return `Bearer ${localStorage.getItem("token")}`;
   }
 
   // загрузка информации о пользователе с сервера
   getProfileInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers
-    })
+    headers: {
+      authorization: `${this._getToken()}`,
+      'Content-Type': 'application/json',
+    }})
       .then(res => {
         return this._getResponseData(res);
       });
@@ -31,7 +32,10 @@ class Api {
   setProfileInfo({name, about}) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        authorization: `${this._getToken()}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         name,
         about
@@ -45,8 +49,10 @@ class Api {
   // загрузка всех карточек с сервера
   getInitialCards() {
       return fetch(`${this._baseUrl}/cards`, {
-        headers: this._headers
-      })
+        headers: {
+          authorization: `${this._getToken()}`,
+          'Content-Type': 'application/json',
+        }})
         .then(res => {
           return this._getResponseData(res);
         });
@@ -56,7 +62,10 @@ class Api {
   editProfile(profileInfo) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        authorization: `${this._getToken()}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         name: profileInfo.name,
         about: profileInfo.job
@@ -71,7 +80,10 @@ class Api {
   getNewCard(cardInfo) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        authorization: `${this._getToken()}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         name: cardInfo.title,
         link: cardInfo.link
@@ -86,7 +98,10 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this._headers,
+      headers: {
+        authorization: `${this._getToken()}`,
+        'Content-Type': 'application/json',
+      }
     })
       .then(res => {
         return this._getResponseData(res);
@@ -97,7 +112,10 @@ class Api {
   _likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
-      headers: this._headers
+      headers: {
+        authorization: `${this._getToken()}`,
+        'Content-Type': 'application/json',
+      }
     })
       .then(res => {
         return this._getResponseData(res);
@@ -108,7 +126,10 @@ class Api {
   _deleteLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
-      headers: this._headers
+      headers: {
+        authorization: `${this._getToken()}`,
+        'Content-Type': 'application/json',
+      }
     })
       .then(res => {
         return this._getResponseData(res);
@@ -119,7 +140,10 @@ class Api {
   getNewAvatar(link) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        authorization: `${this._getToken()}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         avatar: link,
       })
