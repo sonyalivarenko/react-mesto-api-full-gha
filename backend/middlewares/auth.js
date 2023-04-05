@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable linebreak-style */
 /* eslint-disable consistent-return */
 const jwt = require('jsonwebtoken');
@@ -7,15 +8,20 @@ const { JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
+  console.log(authorization);
   if (!authorization || !authorization.startsWith('Bearer ')) {
     next(new UnauthorizedError('Необходима авторизация'));
     return;
   }
   const token = authorization.replace('Bearer ', '');
+  console.log(token);
   let payload;
   try {
+    console.log(JWT_SECRET);
     payload = jwt.verify(token, JWT_SECRET);
+    console.log(payload);
   } catch (err) {
+    console.log(err);
     next(new UnauthorizedError('Необходима авторизация'));
     return;
   }
