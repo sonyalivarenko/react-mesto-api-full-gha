@@ -1,7 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable consistent-return */
-/* eslint-disable max-len */
-/* eslint-disable import/no-import-module-exports */
 /* eslint-disable linebreak-style */
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
@@ -46,7 +42,7 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.status(201).send({ data: user.toJSON }))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         next(new ValidationError('Переданы некорректные данные'));
@@ -79,7 +75,7 @@ module.exports.updateProfile = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if ((err instanceof mongoose.Error.ValidationError) || (err instanceof mongoose.Error.CastError)) {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(new ValidationError('Переданы некорректные данные'));
         return;
       }
@@ -106,7 +102,7 @@ module.exports.updateAvatar = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if ((err instanceof mongoose.Error.ValidationError) || (err instanceof mongoose.Error.CastError)) {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(new ValidationError('Переданы некорректные данные'));
         return;
       }
@@ -139,10 +135,6 @@ module.exports.getСurrentUser = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err instanceof mongoose.Error.CastError) {
-        next(new ValidationError('Переданы некорректные данные'));
-        return;
-      }
       next(err);
     });
 };

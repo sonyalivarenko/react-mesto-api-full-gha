@@ -4,6 +4,7 @@ const { customValidate } = require('../utils/customValidate');
 const {
   getCards, deleteCard, createCard, likeCard, dislikeCard,
 } = require('../controllers/cards');
+const { constRegex } = require('../utils/constRegex');
 
 routerCard.get('/', getCards);
 routerCard.delete('/:cardId', celebrate({
@@ -14,7 +15,7 @@ routerCard.delete('/:cardId', celebrate({
 routerCard.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
-    link: Joi.string().required().regex(/https?:\/\/w*[-._~:/?#[\]@!$&'()*+,;=0-9a-z]+#?/i),
+    link: Joi.string().required().regex(constRegex),
   }),
 }), createCard);
 routerCard.put('/:cardId/likes', celebrate({
