@@ -9,7 +9,7 @@ const { constRegex } = require('../utils/constRegex');
 routerCard.get('/', getCards);
 routerCard.delete('/:cardId', celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().custom(customValidate),
+    cardId: Joi.string().required().custom(customValidate),
   }),
 }), deleteCard);
 routerCard.post('/', celebrate({
@@ -20,12 +20,12 @@ routerCard.post('/', celebrate({
 }), createCard);
 routerCard.put('/:cardId/likes', celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().custom(customValidate),
+    cardId: Joi.string().required().custom(customValidate),
   }),
 }), likeCard);
 routerCard.delete('/:cardId/likes', celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().custom(customValidate),
+    cardId: Joi.string().required().custom(customValidate),
   }),
 }), dislikeCard);
 

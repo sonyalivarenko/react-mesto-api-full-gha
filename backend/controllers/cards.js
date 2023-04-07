@@ -50,8 +50,7 @@ module.exports.createCard = (req, res, next) => {
     .then((card) => card.populate([['owner', 'likes']]))
     .then((card) => res.status(201).send({ data: card }))
     .catch((err) => {
-      if ((err instanceof mongoose.Error.ValidationError)
-           || (err instanceof mongoose.Error.CastError)) {
+      if (err instanceof mongoose.Error.ValidationError) {
         next(new ValidationError('Переданы некорректные данные'));
         return;
       }
